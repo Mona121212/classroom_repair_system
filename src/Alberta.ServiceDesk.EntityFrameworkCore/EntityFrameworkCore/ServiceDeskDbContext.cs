@@ -14,6 +14,10 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Alberta.ServiceDesk;
+using Alberta.ServiceDesk.Facilities;
+using Alberta.ServiceDesk.Bookings;
+using Alberta.ServiceDesk.Policies;
 
 namespace Alberta.ServiceDesk.EntityFrameworkCore;
 
@@ -26,7 +30,11 @@ public class ServiceDeskDbContext :
     IIdentityDbContext
 {
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
-
+    
+    public DbSet<Facility> Facilities { get; set; }
+    public DbSet<Booking> Bookings { get; set; }
+    public DbSet<BookingApproval> BookingApprovals { get; set; }
+    public DbSet<PolicyRule> PolicyRules { get; set; }
 
     #region Entities from the modules
 
@@ -81,11 +89,28 @@ public class ServiceDeskDbContext :
         
         /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(ServiceDeskConsts.DbTablePrefix + "YourEntities", ServiceDeskConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.Entity<Facility>(b =>
+        {
+            b.ToTable(ServiceDeskConsts.DbTablePrefix + "Facilities", ServiceDeskConsts.DbSchema);
+            b.ConfigureByConvention();
+        });
+
+        builder.Entity<Booking>(b =>
+        {
+            b.ToTable(ServiceDeskConsts.DbTablePrefix + "Bookings", ServiceDeskConsts.DbSchema);
+            b.ConfigureByConvention();
+        });
+
+        builder.Entity<BookingApproval>(b =>
+        {
+            b.ToTable(ServiceDeskConsts.DbTablePrefix + "BookingApprovals", ServiceDeskConsts.DbSchema);
+            b.ConfigureByConvention();
+        });
+
+        builder.Entity<PolicyRule>(b =>
+        {
+            b.ToTable(ServiceDeskConsts.DbTablePrefix + "PolicyRules", ServiceDeskConsts.DbSchema);
+            b.ConfigureByConvention();
+        });
     }
 }

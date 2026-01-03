@@ -1,0 +1,51 @@
+@page
+@using Volo.Abp.Account.Localization
+@using Volo.Abp.Account.Web.Pages.Account
+@model Alberta.ServiceDesk.Web.Pages.Account.LoginModel
+@inject IHtmlLocalizer<AccountResource>
+    L
+
+    @{
+    Layout = ThemeManager.CurrentTheme.GetAccountLayout();
+    }
+
+    <div class="card mt-3 shadow-sm rounded">
+        <div class="card-body p-5">
+            <h4>ServiceDesk Sign In</h4>
+
+            <form method="post" class="mt-4">
+                <div class="mb-3">
+                    <label asp-for="LoginInput.UserNameOrEmailAddress" class="form-label">
+                        Employee ID or Email
+                    </label>
+                    <input asp-for="LoginInput.UserNameOrEmailAddress"
+                           class="form-control"
+                           placeholder="T1001 / E1001 / M1001" />
+                    <span asp-validation-for="LoginInput.UserNameOrEmailAddress"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="LoginInput.Password" class="form-label">
+                        Password
+                    </label>
+                    <input asp-for="LoginInput.Password"
+                           class="form-control"
+                           type="password" />
+                    <span asp-validation-for="LoginInput.Password"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input asp-for="LoginInput.RememberMe" class="form-check-input" />
+                    <label asp-for="LoginInput.RememberMe" class="form-check-label">
+                        Remember me
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Sign in
+                </button>
+            </form>
+        </div>
+    </div>
