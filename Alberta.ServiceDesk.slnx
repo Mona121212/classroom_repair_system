@@ -1,0 +1,24 @@
+<Solution>
+    <Configurations>
+        <Platform Name="Any CPU" />
+    </Configurations>
+    <Folder Name="/src/">
+        <Project Path="src/Alberta.ServiceDesk.Domain/Alberta.ServiceDesk.Domain.csproj" />
+        <Project Path="src/Alberta.ServiceDesk.Application/Alberta.ServiceDesk.Application.csproj" />
+        <Project Path="src/Alberta.ServiceDesk.EntityFrameworkCore/Alberta.ServiceDesk.EntityFrameworkCore.csproj" />
+        <Project Path="src/Alberta.ServiceDesk.Web/Alberta.ServiceDesk.Web.csproj" />
+        <Project Path="src/Alberta.ServiceDesk.Domain.Shared/Alberta.ServiceDesk.Domain.Shared.csproj" />
+        <Project Path="src/Alberta.ServiceDesk.Application.Contracts/Alberta.ServiceDesk.Application.Contracts.csproj" />
+        <Project Path="src/Alberta.ServiceDesk.HttpApi/Alberta.ServiceDesk.HttpApi.csproj" />
+        <Project Path="src/Alberta.ServiceDesk.HttpApi.Client/Alberta.ServiceDesk.HttpApi.Client.csproj" />
+        <Project Path="src/Alberta.ServiceDesk.DbMigrator/Alberta.ServiceDesk.DbMigrator.csproj" />
+    </Folder>
+    <Folder Name="/test/">
+        <Project Path="test/Alberta.ServiceDesk.Application.Tests/Alberta.ServiceDesk.Application.Tests.csproj" />
+        <Project Path="test/Alberta.ServiceDesk.Web.Tests/Alberta.ServiceDesk.Web.Tests.csproj" />
+        <Project Path="test/Alberta.ServiceDesk.EntityFrameworkCore.Tests/Alberta.ServiceDesk.EntityFrameworkCore.Tests.csproj" />
+        <Project Path="test/Alberta.ServiceDesk.TestBase/Alberta.ServiceDesk.TestBase.csproj" />
+        <Project Path="test/Alberta.ServiceDesk.Domain.Tests/Alberta.ServiceDesk.Domain.Tests.csproj" />
+        <Project Path="test/Alberta.ServiceDesk.HttpApi.Client.ConsoleTestApp/Alberta.ServiceDesk.HttpApi.Client.ConsoleTestApp.csproj" />
+    </Folder>
+</Solution>
