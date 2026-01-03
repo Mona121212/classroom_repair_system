@@ -22,5 +22,6 @@ namespace Alberta.ServiceDesk;
     )]
 public class ServiceDeskApplicationModule : AbpModule
 {
-
+    // Note: FacilityBookingPermissionDefinitionProvider is automatically discovered by ABP
+    // as it implements PermissionDefinitionProvider interface
 }
