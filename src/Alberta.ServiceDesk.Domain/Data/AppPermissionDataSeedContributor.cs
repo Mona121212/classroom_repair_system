@@ -41,7 +41,7 @@ public class AppPermissionDataSeedContributor : IDataSeedContributor, ITransient
 
     private async Task SeedPermissionsAsync(DataSeedContext context)
     {
-        // Student permissions: View only
+        // Student permissions: Facility.View, Booking.View/Create/Edit/Delete (but cannot book Labs - business rule)
         var studentRole = await _roleManager.FindByNameAsync(AppRoles.Student);
         if (studentRole != null)
         {
@@ -52,12 +52,14 @@ public class AppPermissionDataSeedContributor : IDataSeedContributor, ITransient
                 {
                     FacilityView,
                     BookingView,
-                    BookingCreate
+                    BookingCreate,
+                    BookingEdit,
+                    BookingDelete
                 },
                 context.TenantId);
         }
 
-        // Teacher permissions: View, Create, Edit own bookings
+        // Teacher permissions: Facility.View, Booking.View/Create/Edit/Delete
         var teacherRole = await _roleManager.FindByNameAsync(AppRoles.Teacher);
         if (teacherRole != null)
         {
@@ -69,38 +71,19 @@ public class AppPermissionDataSeedContributor : IDataSeedContributor, ITransient
                     FacilityView,
                     BookingView,
                     BookingCreate,
-                    BookingEdit
-                },
-                context.TenantId);
-        }
-
-        // DepartmentAdmin permissions: Full access to facilities and bookings in department
-        var deptAdminRole = await _roleManager.FindByNameAsync(AppRoles.DepartmentAdmin);
-        if (deptAdminRole != null)
-        {
-            await _permissionDataSeeder.SeedAsync(
-                "R", // Role permission value provider
-                AppRoles.DepartmentAdmin,
-                new[]
-                {
-                    FacilityView,
-                    FacilityCreate,
-                    FacilityEdit,
-                    BookingView,
-                    BookingCreate,
                     BookingEdit,
-                    BookingApprove
+                    BookingDelete
                 },
                 context.TenantId);
         }
 
-        // SchoolAdmin permissions: Full access to everything
-        var schoolAdminRole = await _roleManager.FindByNameAsync(AppRoles.SchoolAdmin);
-        if (schoolAdminRole != null)
+        // Admin permissions: Full access to everything
+        var adminRole = await _roleManager.FindByNameAsync(AppRoles.Admin);
+        if (adminRole != null)
         {
             await _permissionDataSeeder.SeedAsync(
                 "R", // Role permission value provider
-                AppRoles.SchoolAdmin,
+                AppRoles.Admin,
                 new[]
                 {
                     FacilityView,

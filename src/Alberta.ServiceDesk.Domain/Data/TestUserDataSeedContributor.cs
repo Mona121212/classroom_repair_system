@@ -31,8 +31,7 @@ public class TestUserDataSeedContributor : IDataSeedContributor, ITransientDepen
         {
             ("S1001", "Student123!", AppRoles.Student, "student@servicedesk.com", "Student User"),
             ("T1001", "Teacher123!", AppRoles.Teacher, "teacher@servicedesk.com", "Teacher User"),
-            ("D1001", "Admin123!", AppRoles.DepartmentAdmin, "deptadmin@servicedesk.com", "Department Admin User"),
-            ("A1001", "Admin123!", AppRoles.SchoolAdmin, "schooladmin@servicedesk.com", "School Admin User")
+            ("A1001", "Admin123!", AppRoles.Admin, "admin@servicedesk.com", "Admin User")
         };
 
         foreach (var (username, password, roleName, email, name) in users)
