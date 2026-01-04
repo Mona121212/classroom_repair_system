@@ -99,6 +99,26 @@ public class ServiceDeskDbContext :
         {
             b.ToTable(ServiceDeskConsts.DbTablePrefix + "Bookings", ServiceDeskConsts.DbSchema);
             b.ConfigureByConvention();
+            
+            b.Property(x => x.BookingNo)
+                .IsRequired()
+                .HasMaxLength(32);
+            
+            b.Property(x => x.Purpose)
+                .IsRequired()
+                .HasMaxLength(256);
+            
+            // Unique index on BookingNo
+            b.HasIndex(x => x.BookingNo)
+                .IsUnique();
+            
+            // Composite index on FacilityId and StartTime for query performance
+            b.HasIndex(x => new { x.FacilityId, x.StartTime });
+            
+            b.HasOne(x => x.Facility)
+                .WithMany()
+                .HasForeignKey(x => x.FacilityId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
 
         builder.Entity<BookingApproval>(b =>
