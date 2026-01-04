@@ -3,6 +3,8 @@
   "Texts": {
     "AppName": "ServiceDesk",
     "Menu:Home": "Home",
+    "Menu:Facilities": "Facilities",
+    "Menu:Bookings": "Bookings",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information visit",
     "Welcome": "Welcome"
   }
