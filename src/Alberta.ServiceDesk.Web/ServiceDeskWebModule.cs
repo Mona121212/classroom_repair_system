@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -137,6 +139,34 @@ public class ServiceDeskWebModule : AbpModule
             });
         }
 
+        // Configure CORS for frontend
+        context.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
+            {
+                var origins = configuration["App:CorsOrigins"]?.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(o => o.Trim().TrimEnd('/'))
+                    .ToArray() ?? Array.Empty<string>();
+                
+                if (origins.Length > 0)
+                {
+                    builder
+                        .WithOrigins(origins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                }
+                else
+                {
+                    // Development: Allow all origins
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                }
+            });
+        });
+
         ConfigureBundles();
         ConfigureUrls(configuration);
         ConfigureHealthChecks(context);
@@ -270,6 +300,7 @@ public class ServiceDeskWebModule : AbpModule
 
         app.UseCorrelationId();
         app.UseRouting();
+        app.UseCors();
         app.MapAbpStaticAssets();
         app.UseAbpStudioLink();
         app.UseAbpSecurityHeaders();

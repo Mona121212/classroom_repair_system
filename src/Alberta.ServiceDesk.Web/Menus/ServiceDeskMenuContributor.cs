@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Alberta.ServiceDesk.Localization;
 using Alberta.ServiceDesk.Permissions;
 using Alberta.ServiceDesk.MultiTenancy;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.SettingManagement.Web.Navigation;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Identity.Web.Navigation;
@@ -23,6 +24,7 @@ public class ServiceDeskMenuContributor : IMenuContributor
     private static Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
         var l = context.GetLocalizer<ServiceDeskResource>();
+        var permissionChecker = context.ServiceProvider.GetRequiredService<IPermissionChecker>();
 
         //Home
         context.Menu.AddItem(
@@ -35,10 +37,34 @@ public class ServiceDeskMenuContributor : IMenuContributor
             )
         );
 
+        //Facilities - Visible to all authenticated users
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                ServiceDeskMenus.Facilities,
+                l["Menu:Facilities"],
+                "~/Facilities",
+                icon: "fa fa-building",
+                order: 2,
+                requiredPermissionName: FacilityBookingPermissions.FacilityView
+            )
+        );
 
-        //Administration
+        //Bookings - Visible to all authenticated users
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                ServiceDeskMenus.Bookings,
+                l["Menu:Bookings"],
+                "~/Bookings",
+                icon: "fa fa-calendar-check",
+                order: 3,
+                requiredPermissionName: FacilityBookingPermissions.BookingView
+            )
+        );
+
+        //Administration - Only visible to Admin
         var administration = context.Menu.GetAdministration();
         administration.Order = 6;
+        administration.RequiredPermissionName = FacilityBookingPermissions.FacilityCreate; // Only Admin has this permission
 
         //Administration->Identity
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 1);

@@ -1,13 +1,9 @@
 @page
 @using Volo.Abp.Account.Localization
 @using Volo.Abp.Account.Web.Pages.Account
+@using Microsoft.AspNetCore.Mvc.Localization
 @model Alberta.ServiceDesk.Web.Pages.Account.LoginModel
-@inject IHtmlLocalizer<AccountResource>
-    L
-
-    @{
-    Layout = ThemeManager.CurrentTheme.GetAccountLayout();
-    }
+@inject IHtmlLocalizer<AccountResource> L
 
     <div class="card mt-3 shadow-sm rounded">
         <div class="card-body p-5">

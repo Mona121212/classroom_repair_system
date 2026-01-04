@@ -1,6 +1,7 @@
 ﻿@page
 @model Alberta.ServiceDesk.Web.Pages.IndexModel
 @using Alberta.ServiceDesk.Web.Menus
+@using Alberta.ServiceDesk.Authorization
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Alberta.ServiceDesk.Localization
@@ -28,20 +29,50 @@
                         <p class="lead text-muted mb-2">@L["LongWelcomeMessage"]</p>
                         <a href="/Account/Login" class="btn btn-primary mb-4"><i class="fa-solid fa-right-to-bracket me-1"></i><span>@L["Login"]</span></a>
                     }
+                    else
+                    {
+                        <h3>Welcome, @CurrentUser.UserName!</h3>
+                        <p class="lead text-muted mb-3">
+                            @if (Model.IsAdmin)
+                            {
+                                <text>You are logged in as <strong>Administrator</strong>. You have full access to manage facilities and bookings.</text>
+                            }
+                            else if (Model.IsTeacher)
+                            {
+                                <text>You are logged in as <strong>Teacher</strong>. You can browse facilities and create bookings, including laboratory facilities.</text>
+                            }
+                            else if (Model.IsStudent)
+                            {
+                                <text>You are logged in as <strong>Student</strong>. You can browse facilities and create bookings (laboratory facilities are restricted).</text>
+                            }
+                        </p>
+                        
+                        <div class="d-flex gap-2 mb-3">
+                            <a href="/Facilities" class="btn btn-primary">
+                                <i class="fa fa-building me-1"></i>Browse Facilities
+                            </a>
+                            <a href="/Bookings" class="btn btn-primary soft">
+                                <i class="fa fa-calendar-check me-1"></i>My Bookings
+                            </a>
+                        </div>
+                    }
 
-                    <h4>Getting Started</h4>
-                    <p class="text-muted mb-2">Learn how to create and run
-                        a
-                        new web application using the application startup
-                        template.</p>
+                    @if (!CurrentUser.IsAuthenticated)
+                    {
+                        <h4>Getting Started</h4>
+                        <p class="text-muted mb-2">Learn how to create and run
+                            a
+                            new web application using the application startup
+                            template.</p>
 
-                    <a href="https://abp.io/docs/latest/getting-started" class="btn  btn-brand  mb-2" target="_blank">Getting Started</a>
+                        <a href="https://abp.io/docs/latest/getting-started" class="btn  btn-brand  mb-2" target="_blank">Getting Started</a>
 
-                    <h4>Web Application Development Tutorial</h4>
-                    <p class="text-muted mb-2">Learn how to build an ABP based
-                        web
-                        application named Acme.BookStore.</p>
-                    <a href="https://abp.io/docs/latest/tutorials/book-store/part-1?UI=MVC&DB=EF" class="btn btn-primary soft mb-2" target="_blank">Explore Tutorial</a>
+                        <h4>Web Application Development Tutorial</h4>
+                        <p class="text-muted mb-2">Learn how to build an ABP based
+                            web
+                            application named Acme.BookStore.</p>
+                        <a href="https://abp.io/docs/latest/tutorials/book-store/part-1?UI=MVC&DB=EF" class="btn btn-primary soft mb-2" target="_blank">Explore Tutorial</a>
+                    }
                 </div>
                 <img class="card-bg-image" src="/images/getting-started/bg-01.png">
             </div>

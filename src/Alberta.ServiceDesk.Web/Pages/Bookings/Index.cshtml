@@ -1,0 +1,27 @@
+@page
+@model Alberta.ServiceDesk.Web.Pages.Bookings.IndexModel
+@using Alberta.ServiceDesk.Web.Menus
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Alberta.ServiceDesk.Localization
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<ServiceDeskResource> L
+@{
+    ViewBag.PageTitle = L["Menu:Bookings"];
+    PageLayout.Content.MenuItemName = ServiceDeskMenus.Bookings;
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>@L["Menu:Bookings"]</h4>
+            </div>
+            <div class="card-body">
+                <p>Booking list page - To be implemented with React frontend or Razor components.</p>
+                <p>API endpoint: <code>GET /api/app/booking</code></p>
+            </div>
+        </div>
+    </div>
+</div>
+
